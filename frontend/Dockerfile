@@ -1,5 +1,5 @@
 # Use a specific Node.js version (v18.13 or later)
-FROM node:18.13
+FROM node:18.13 AS build
 
 # Set the working directory
 WORKDIR /app
@@ -22,11 +22,15 @@ RUN ng build --configuration=production --output-path=dist/crudfrontend
 
 # Use a lightweight web server to serve the built Angular app
 FROM nginx:stable-alpine
-COPY --from=0 /app/dist/crudfrontend /usr/share/nginx/html
-COPY .htaccess /usr/share/nginx/html/
+
+# Copy the custom Nginx configuration file
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy the built Angular app
+COPY --from=build /app/dist/crudfrontend /usr/share/nginx/html
 
 # Expose the port on which the Angular application will run
 EXPOSE 80
 
 # Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
