@@ -18,7 +18,7 @@ RUN npm install --only=development
 RUN npm install -g @angular/cli
 
 # Run the Angular development server
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--disableHostCheck"]
 
 # Expose the port on which the Angular application will run
 EXPOSE 4200
