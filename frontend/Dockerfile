@@ -23,8 +23,10 @@ RUN ng build --configuration=production --output-path=dist/crudfrontend
 # Use a lightweight web server to serve the built Angular app
 FROM nginx:stable-alpine
 COPY --from=0 /app/dist/crudfrontend /usr/share/nginx/html
+COPY .htaccess /usr/share/nginx/html/
 
 # Expose the port on which the Angular application will run
 EXPOSE 80
+
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
