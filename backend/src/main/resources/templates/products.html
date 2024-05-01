@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Products</h1>
+
+    <!-- Form for creating a new product -->
+    <form action="/products/save" method="post" enctype="multipart/form-data" class="mb-4">
+        <label for="productName" class="block mb-1">Product Name:</label>
+        <input required type="text" id="productName" name="productName" class="w-full px-3 py-2 border rounded-md mb-2">
+
+        <label for="productDescription" class="block mb-1">Product Description:</label>
+        <textarea required id="productDescription" name="productDescription" rows="3" class="w-full px-3 py-2 border rounded-md mb-2"></textarea>
+
+        <label for="productCategory" class="block mb-1">Product Category:</label>
+        <input required type="text" id="productCategory" name="productCategory" class="w-full px-3 py-2 border rounded-md mb-2">
+
+        <label for="productPrice" class="block mb-1">Product Price:</label>
+        <input required type="number" step="0.1" id="productPrice" name="productPrice" class="w-full px-3 py-2 border rounded-md mb-2">
+
+        <label for="productStock" class="block mb-1">Product Stock:</label>
+        <input required type="number" step="1" id="productStock" name="productStock" class="w-full px-3 py-2 border rounded-md mb-2">
+
+        <label for="file" class="block mb-1">Product Image:</label>
+        <input required type="file" id="file" name="file" class="w-full px-3 py-2 border rounded-md mb-2">
+
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Create Product</button>
+    </form>
+
+
+
+
+
+
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Display existing products -->
+        <div th:each="product : ${products}" class="bg-white p-4 shadow-md ">
+            <img th:src="@{/productsImages/{imagePath}(imagePath=${product.productImagePath})}" alt="Product Image" class="w-full"/>
+
+            <h2 class="text-lg font-bold mb-2" th:text="${product.productName}"></h2>
+            <p class="text-sm mb-2" th:text="${product.productDescription}"></p>
+            <p class="text-sm">Category: <span th:text="${product.productCategory}"></span></p>
+            <p class="text-sm">Price: <span th:text="${product.productPrice}"></span></p>
+            <p class="text-sm">Stock: <span th:text="${product.productStock}"></span></p>
+            <p class="text-sm">id: <span th:text="${product.id}"></span></p>
+
+            <!-- Edit form -->
+            <form th:action="@{/products/update/{id}(id=${product.id})}" method="post" class="mb-2">
+                <input type="hidden" name="id" th:value="${product.id}">
+                <label for="editProductName" class="block mb-1">Product Name:</label>
+                <input required type="text" id="editProductName" name="productName" th:value="${product.productName}" class="w-full px-3 py-2 border rounded-md mb-2">
+
+                <label for="editProductDescription" class="block mb-1">Product Description:</label>
+                <textarea required id="editProductDescription" name="productDescription" rows="3" class="w-full px-3 py-2 border rounded-md mb-2" th:text="${product.productDescription}"></textarea>
+
+                <label for="editProductCategory" class="block mb-1">Product Category:</label>
+                <input required type="text" id="editProductCategory" name="productCategory" th:value="${product.productCategory}" class="w-full px-3 py-2 border rounded-md mb-2">
+
+                <label for="editProductPrice" class="block mb-1">Product Price:</label>
+                <input required type="number" step="0.1" id="editProductPrice" name="productPrice" th:value="${product.productPrice}" class="w-full px-3 py-2 border rounded-md mb-2">
+
+                <label for="editProductStock" class="block mb-1">Product Stock:</label>
+                <input required type="number" step="1" id="editProductStock" name="productStock" th:value="${product.productStock}" class="w-full px-3 py-2 border rounded-md mb-2">
+
+                <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded-md">Update</button>
+            </form>
+
+            <form th:action="@{/products/delete/{id}(id=${product.id})}" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded-md">Delete</button>
+            </form>
+
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
