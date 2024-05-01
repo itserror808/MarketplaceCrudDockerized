@@ -1,3 +1,4 @@
+# Use a specific Node.js version (v18.13 or later)
 FROM node:18.13
 
 # Set the working directory
@@ -19,14 +20,14 @@ RUN npm install -g @angular/cli
 # Build the Angular app
 RUN ng build --configuration=production --output-path=dist/crudfrontend
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-
 # Use a lightweight web server to serve the built Angular app
 FROM nginx:stable-alpine
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 COPY --from=0 /app/dist/crudfrontend /usr/share/nginx/html
 
 # Expose the port on which the Angular application will run
 EXPOSE 80
 # Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
