@@ -17,7 +17,14 @@ COPY . .
 RUN npm install --only=development
 RUN npm install -g @angular/cli
 
-# Run the Angular development server
-CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--publicHost","c220g1-031127.wisc.cloudlab.us", "--disableHostCheck"]
+# Build the Angular app
+RUN ng build --configuration=production --output-path=dist/crudfrontend
+
+# Use a lightweight web server to serve the built Angular app
+FROM nginx:stable-alpine
+COPY --from=0 /app/dist/crudfrontend /usr/share/nginx/html
+
 # Expose the port on which the Angular application will run
-EXPOSE 4200
+EXPOSE 80
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
