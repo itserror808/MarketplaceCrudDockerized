@@ -8,8 +8,8 @@ import { Viewer } from './viewer.model' ;
   providedIn: 'root'
 })
 export class DataService {
-  private baseUrl = 'http://ms1122.utah.cloudlab.us/api/products';
-  private viewerUrl = 'http://ms1122.utah.cloudlab.us/api/viewers';
+  private baseUrl = 'http://ms1122.utah.cloudlab.us:8080/api/products';
+  private viewerUrl = 'http://ms1122.utah.cloudlab.us:8080/api/viewers';
 
   constructor(private http: HttpClient) { }
 
