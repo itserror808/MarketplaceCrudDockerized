@@ -30,4 +30,4 @@ COPY --from=0 /app/dist/crudfrontend /usr/share/nginx/html
 # Expose the port on which the Angular application will run
 EXPOSE 80
 # Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
