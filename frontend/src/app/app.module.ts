@@ -75,7 +75,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
 
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpClientXsrfModule, multi: true }],
+  
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA] // Add this line
 
