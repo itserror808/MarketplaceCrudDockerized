@@ -8,9 +8,9 @@ import { Viewer } from './viewer.model' ;
   providedIn: 'root'
 })
 export class DataService {
-  private baseUrl = 'http://15.188.127.120:8080/api/products';
-  private viewerUrl = 'http://15.188.127.120:8080/api/viewers';
-  
+  private baseUrl = 'http://159.65.93.176:8080/api/products';
+  private viewerUrl = 'http://159.65.93.176:8080/api/viewers';
+
 
   constructor(private http: HttpClient) { }
 
