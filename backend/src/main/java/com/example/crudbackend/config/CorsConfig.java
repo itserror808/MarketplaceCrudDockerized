@@ -13,7 +13,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                    .allowedOrigins("https://marketplace-crud-dockerized.vercel.app/")
+                    .allowedOrigins("https://marketplace-crud-dockerized-7w5tvjgpm-itserror808s-projects.vercel.app/")
                     .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD")
                     .allowedHeaders("*")
                     .allowCredentials(true);
